@@ -40,6 +40,7 @@ class Carrinho {
     } else {
       this.items.push({
         ...produto,
+        imagem: Array.isArray(produto.imagens) ? produto.imagens[0] : produto.imagem,
         quantidade: 1
       });
     }

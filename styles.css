@@ -14,11 +14,20 @@
   box-sizing: border-box;
 }
 
-body { 
+body {
   font-family: 'Roboto', sans-serif;
   background: var(--bg-color);
   color: var(--text-color);
   line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+main.container {
+  display: block;
+  width: 100%;
+  min-height: 1px;
 }
 
 .container {
@@ -50,50 +59,97 @@ body {
   transform: scale(1.05);
 }
 
-.ofertas { 
+.ofertas {
   padding: 2rem 0;
 }
 
-.oferta-cards { 
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1rem;
+.ofertas h2,
+.catalogo h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.ofertas-swiper {
+  padding: 1rem 0;
+  margin: 0 -1rem;
+}
+
+.swiper-slide {
+  height: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .oferta-card {
-  background: var(--card-bg);
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 300px;
+  position: relative;
+  transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  transition: transform 0.3s ease;
 }
 
 .oferta-card:hover {
   transform: translateY(-5px);
 }
 
-.oferta-card img { 
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  margin-bottom: 1rem;
-}
-
 .oferta-label {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background: var(--danger-color);
+  top: 10px;
+  right: 10px;
+  background: #ff4444;
   color: white;
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.oferta-card img {
+  width: auto;
+  max-width: 100%;
+  height: 180px;
+  object-fit: contain;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.oferta-card p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+}
+
+.oferta-card b {
+  display: block;
+  margin-top: 0.5rem;
+  color: #25d366;
+  font-size: 1.2rem;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #ff4444;
+}
+
+.swiper-pagination-bullet-active {
+  background: #ff4444;
+}
+
+@media (max-width: 640px) {
+  .oferta-card {
+    max-width: 250px;
+  }
+  
+  .oferta-card img {
+    height: 120px;
+  }
 }
 
 .catalogo { 
@@ -294,10 +350,6 @@ body {
 @media (max-width: 768px) {
   .header-bg {
     height: 200px;
-  }
-  
-  .oferta-cards {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
   
   .carrinho-btn {

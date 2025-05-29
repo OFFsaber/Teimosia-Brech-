@@ -212,11 +212,8 @@
         <div class='detalhe-preco'>R$ ${prod.preco.toFixed(2)}</div>
         <div class='detalhe-desc'>${prod.detalhes}</div>
         <div class='detalhe-btns'>
-          <button class='btn-detalhe btn-detalhe-carrinho' onclick='window.opener && window.opener.adicionarCarrinho(${prod.id});window.close();'>
+          <button class='btn-detalhe btn-detalhe-carrinho' id='btnAddCarrinhoDetalhe'>
             <span>🛒</span> Adicionar ao carrinho
-          </button>
-          <button class='btn-detalhe btn-detalhe-compra' onclick='window.opener && window.opener.abrirModalCompra(${prod.id});window.close();'>
-            <span>💬</span> Comprar agora
           </button>
         </div>
         <div class='detalhe-video-wrap'>
@@ -227,12 +224,29 @@
       atualizarBotoesNavegacao();
     }
 
+    function adicionarAoCarrinhoDetalhe(prodId) {
+      if (window.opener && typeof window.opener.adicionarCarrinho === 'function') {
+        window.opener.adicionarCarrinho(prodId);
+        window.close();
+      } else {
+        alert('Não foi possível adicionar ao carrinho. Abra o site usando um servidor local para usar esta função.');
+      }
+    }
+
     // Tornar funções globais
     window.trocarImagem = trocarImagem;
     window.navegarImagem = navegarImagem;
 
     // Inicializar quando a página carregar
-    window.onload = renderizarDetalhe;
+    window.onload = function() {
+      renderizarDetalhe();
+      // Adicionar evento ao botão de adicionar ao carrinho
+      const btnAdd = document.getElementById('btnAddCarrinhoDetalhe');
+      if (btnAdd) {
+        const id = parseInt(getQueryParam('id'));
+        btnAdd.onclick = function() { adicionarAoCarrinhoDetalhe(id); };
+      }
+    };
   </script>
 </body>
 </html> 
